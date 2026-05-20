@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>外卖快送</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="app-container">
+    <div id="page-login" class="page active">
+      <div class="login-container">
+        <div class="logo-wrapper">
+          <div class="logo-icon">
+            <i class="fas fa-bolt"></i>
+          </div>
+        </div>
+        <h1 class="title">欢迎回来</h1>
+        <p class="subtitle">让美味准时到达您的餐桌</p>
+        
+        <form class="login-form">
+          <div class="form-group">
+            <label class="form-label">手机号</label>
+            <div class="input-group">
+              <select class="country-code">
+                <option>+86</option>
+              </select>
+              <input type="tel" class="form-input" placeholder="请输入手机号码">
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label class="form-label">验证码</label>
+            <div class="input-group">
+              <input type="text" class="form-input" placeholder="请输入6位验证码">
+              <button type="button" class="btn-get-code">获取验证码</button>
+            </div>
+          </div>
+          
+          <div class="form-links">
+            <a href="#" class="link-left" onclick="showPasswordLogin()">密码登录</a>
+            <a href="#" class="link-right">忘记密码?</a>
+          </div>
+          
+          <button type="button" class="btn-login" onclick="login()">登录/注册</button>
+        </form>
+        
+        <p class="register-link">还没有账号? <a href="#" onclick="login()">立即注册</a></p>
+        
+        <div class="divider">
+          <span>其他登录方式</span>
+        </div>
+        
+        <div class="social-login">
+          <button class="social-btn" onclick="socialLogin('wechat')">
+            <i class="fab fa-weixin"></i>
+            <span>微信</span>
+          </button>
+          <button class="social-btn" onclick="socialLogin('alipay')">
+            <i class="fab fa-alipay"></i>
+            <span>支付宝</span>
+          </button>
+          <button class="social-btn" onclick="socialLogin('phone')">
+            <i class="fas fa-mobile-alt"></i>
+            <span>一键登录</span>
+          </button>
+        </div>
+        
+        <div class="agreement">
+          <label class="checkbox-label">
+            <input type="checkbox" checked>
+            <span class="checkmark"></span>
+            <span>我已阅读并同意</span>
+          </label>
+          <a href="#">《用户服务协议》</a>、<a href="#">《隐私政策》</a>以及<a href="#">《运营商协议》</a>，未注册手机号验证后将自动创建账号。
+        </div>
+      </div>
+    </div>
+
+    <div id="page-home" class="page">
+      <header class="header">
+        <div class="header-left">
+          <i class="fas fa-bolt logo-icon"></i>
+        </div>
+        <h1 class="header-title">外卖快送</h1>
+        <div class="header-right">
+          <button class="header-btn" onclick="showSearch()">
+            <i class="fas fa-search"></i>
+          </button>
+          <button class="header-btn">
+            <i class="fas fa-ellipsis-v"></i>
+          </button>
+        </div>
+      </header>
+      
+      <div class="location-bar">
+        <i class="fas fa-map-marker-alt"></i>
+        <span class="location-text">成都市高新区天府</span>
+        <i class="fas fa-chevron-down"></i>
+      </div>
+      
+      <div class="search-bar">
+        <input type="text" placeholder="搜索商家、商品名称" class="search-input">
+        <button class="search-btn">搜索</button>
+      </div>
+      
+      <div class="category-row">
+        <button class="category-item" onclick="filterCategory('quick')">
+          <i class="fas fa-utensils"></i>
+          <span>快餐便当</span>
+        </button>
+        <button class="category-item" onclick="filterCategory('dessert')">
+          <i class="fas fa-ice-cream"></i>
+          <span>甜品饮品</span>
+        </button>
+        <button class="category-item" onclick="filterCategory('pizza')">
+          <i class="fas fa-pizza-slice"></i>
+          <span>披萨汉堡</span>
+        </button>
+        <button class="category-item" onclick="filterCategory('coffee')">
+          <i class="fas fa-coffee"></i>
+          <span>咖啡下午茶</span>
+        </button>
+        <button class="category-item" onclick="filterCategory('local')">
+          <i class="fas fa-fire"></i>
+          <span>地方菜系</span>
+        </button>
+      </div>
+      
+      <div class="banner">
+        <div class="banner-content">
+          <h2 class="banner-title">超级会员日</h2>
+          <p class="banner-subtitle">大额红包领不停，低至5折起</p>
+          <button class="banner-btn">立即领取</button>
+        </div>
+        <div class="banner-icon">
+          <i class="fas fa-flame"></i>
+        </div>
+      </div>
+      
+      <div class="section">
+        <div class="section-header">
+          <h2 class="section-title">附近餐厅</h2>
+          <div class="section-tabs">
+            <button class="tab-active">综合排序</button>
+            <button>销量优先</button>
+          </div>
+        </div>
+        
+        <div class="restaurant-list">
+          <div class="restaurant-card" onclick="goToRestaurant('old-cd')">
+            <img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Chinese%20restaurant%20logo%20with%20panda%20and%20spicy%20food%20icon&image_size=square" alt="老成都川味馆" class="restaurant-logo">
+            <div class="restaurant-info">
+              <h3 class="restaurant-name">老成都川味馆 (天府路店)</h3>
+              <div class="restaurant-meta">
+                <span class="rating"><i class="fas fa-star"></i> 4.8</span>
+                <span class="month-sales">月售 2500+</span>
+              </div>
+              <div class="restaurant-tags">
+                <span class="tag">川菜</span>
+                <span class="tag">回味无穷</span>
+                <span class="tag">配送超快</span>
+              </div>
+              <div class="restaurant-footer">
+                <span class="min-order">起送 ¥20</span>
+                <span class="delivery-fee">配送费 ¥3</span>
+                <span class="delivery-time">35分钟</span>
+              </div>
+            </div>
+          </div>
+          
+          <div class="restaurant-card" onclick="goToRestaurant('mcdonalds')">
+            <img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=McDonalds%20golden%20arches%20logo%20on%20white%20background&image_size=square" alt="麦当劳" class="restaurant-logo">
+            <div class="restaurant-info">
+              <h3 class="restaurant-name">麦当劳 McDonald's (星光广场店)</h3>
+              <div class="restaurant-meta">
+                <span class="rating"><i class="fas fa-star"></i> 4.9</span>
+                <span class="month-sales">月售 5000+</span>
+              </div>
+              <div class="restaurant-tags">
+                <span class="tag">西式快餐</span>
+                <span class="tag">品牌连锁</span>
+                <span class="tag">支持自取</span>
+              </div>
+              <div class="restaurant-footer">
+                <span class="min-order">起送 ¥0</span>
+                <span class="delivery-fee">配送费 ¥9</span>
+                <span class="delivery-time">25分钟</span>
+              </div>
+            </div>
+          </div>
+          
+          <div class="restaurant-card" onclick="goToRestaurant('mixue')">
+            <img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Mixue%20ice%20cream%20and%20tea%20logo%20with%20snowman%20character&image_size=square" alt="蜜雪冰城" class="restaurant-logo">
+            <div class="restaurant-info">
+              <h3 class="restaurant-name">蜜雪冰城 (大学城店)</h3>
+              <div class="restaurant-meta">
+                <span class="rating"><i class="fas fa-star"></i> 4.7</span>
+                <span class="month-sales">月售 8000+</span>
+              </div>
+              <div class="restaurant-tags">
+                <span class="tag">奶茶</span>
+                <span class="tag">性价比高</span>
+                <span class="tag">学生最爱</span>
+              </div>
+              <div class="restaurant-footer">
+                <span class="min-order">起送 ¥15</span>
+                <span class="delivery-fee">配送费 ¥2</span>
+                <span class="delivery-time">20分钟</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <p class="load-more">已经到底啦，更多美味正在火速赶来...</p>
+      </div>
+      
+      <nav class="nav-bottom">
+        <button class="nav-item active" onclick="showPage('page-home')">
+          <i class="fas fa-home"></i>
+          <span>首页</span>
+        </button>
+        <button class="nav-item" onclick="showPage('page-orders')">
+          <i class="fas fa-list-alt"></i>
+          <span>订单</span>
+        </button>
+        <button class="nav-item cart-btn" onclick="showPage('page-cart')">
+          <i class="fas fa-shopping-cart"></i>
+          <span>购物车</span>
+        </button>
+        <button class="nav-item" onclick="showPage('page-profile')">
+          <i class="fas fa-user"></i>
+          <span>我的</span>
+        </button>
+      </nav>
+    </div>
+
+    <div id="page-cart" class="page">
+      <header class="header">
+        <button class="header-back" onclick="showPage('page-home')">
+          <i class="fas fa-arrow-left"></i>
+        </button>
+        <h1 class="header-title">购物车</h1>
+        <div class="header-right"></div>
+      </header>
+      
+      <div class="empty-cart">
+        <div class="empty-icon">
+          <i class="fas fa-shopping-basket"></i>
+        </div>
+        <h2>购物车空空如也</h2>
+        <p>肚子饿了吗？赶紧去挑选几款心仪的美食吧~</p>
+        <button class="btn-primary" onclick="showPage('page-home')">去逛逛吧</button>
+      </div>
+      
+      <div class="section">
+        <div class="section-header">
+          <h2 class="section-title">为你推荐</h2>
+          <a href="#" class="section-link">发现惊喜美味</a>
+        </div>
+        
+        <div class="restaurant-list">
+          <div class="restaurant-card" onclick="goToRestaurant('shuxiang')">
+            <img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Sichuan%20cuisine%20restaurant%20food%20image%20with%20spicy%20dishes&image_size=landscape_4_3" alt="蜀香坊川菜馆" class="restaurant-logo">
+            <div class="restaurant-info">
+              <h3 class="restaurant-name">蜀香坊川菜馆</h3>
+              <div class="restaurant-meta">
+                <span class="rating"><i class="fas fa-star"></i> 4.8</span>
+                <span class="month-sales">月售 2000+</span>
+                <span class="distance">1.2km</span>
+              </div>
+              <div class="restaurant-tags">
+                <span class="tag brand">品牌</span>
+                <span class="tag">满30减15</span>
+                <span class="tag">首单免配送费</span>
+                <span class="tag">4.0折起</span>
+              </div>
+              <div class="restaurant-footer">
+                <span class="min-order">起送 ¥20</span>
+                <span class="delivery-fee">配送费 ¥3</span>
+                <span class="delivery-time">35分钟</span>
+              </div>
+            </div>
+          </div>
+          
+          <div class="restaurant-card" onclick="goToRestaurant('light')">
+            <img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Healthy%20salad%20bowl%20with%20fresh%20vegetables%20and%20protein&image_size=landscape_4_3" alt="轻食主义" class="restaurant-logo">
+            <div class="restaurant-info">
+              <h3 class="restaurant-name">轻食主义·健康</h3>
+              <div class="restaurant-meta">
+                <span class="rating"><i class="fas fa-star"></i> 4.9</span>
+                <span class="month-sales">月售 1500+</span>
+                <span class="distance">800m</span>
+              </div>
+              <div class="restaurant-tags">
+                <span class="tag brand">品牌</span>
+                <span class="tag">立减¥5</span>
+                <span class="tag">满减叠加</span>
+                <span class="tag">营养师推荐</span>
+              </div>
+              <div class="restaurant-footer">
+                <span class="min-order">起送 ¥15</span>
+                <span class="delivery-fee">配送费 ¥0</span>
+                <span class="delivery-time">25分钟</span>
+              </div>
+            </div>
+          </div>
+          
+          <div class="restaurant-card" onclick="goToRestaurant('huoju')">
+            <img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Chinese%20BBQ%20grilled%20meat%20skewers%20on%20plate&image_size=landscape_4_3" alt="炭火居精品烤" class="restaurant-logo">
+            <div class="restaurant-info">
+              <h3 class="restaurant-name">炭火居精品烤</h3>
+              <div class="restaurant-meta">
+                <span class="rating"><i class="fas fa-star"></i> 4.7</span>
+                <span class="month-sales">月售 800+</span>
+                <span class="distance">2.5km</span>
+              </div>
+              <div class="restaurant-tags">
+                <span class="tag">大额神券</span>
+                <span class="tag">新店满减</span>
+              </div>
+              <div class="restaurant-footer">
+                <span class="min-order">起送 ¥50</span>
+                <span class="delivery-fee">配送费 ¥5</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <p class="load-more">—— 已经到底了，更多美食在首页 ——</p>
+      </div>
+      
+      <nav class="nav-bottom">
+        <button class="nav-item" onclick="showPage('page-home')">
+          <i class="fas fa-home"></i>
+          <span>首页</span>
+        </button>
+        <button class="nav-item" onclick="showPage('page-orders')">
+          <i class="fas fa-list-alt"></i>
+          <span>订单</span>
+        </button>
+        <button class="nav-item cart-btn active" onclick="showPage('page-cart')">
+          <i class="fas fa-shopping-cart"></i>
+          <span>购物车</span>
+        </button>
+        <button class="nav-item" onclick="showPage('page-profile')">
+          <i class="fas fa-user"></i>
+          <span>我的</span>
+        </button>
+      </nav>
+    </div>
+
+    <div id="page-orders" class="page">
+      <header class="header">
+        <button class="header-back" onclick="showPage('page-home')">
+          <i class="fas fa-arrow-left"></i>
+        </button>
+        <h1 class="header-title">正在配送中</h1>
+        <div class="header-right"></div>
+      </header>
+      
+      <div class="delivery-info">
+        <div class="delivery-header">
+          <span class="label">预计送达时间</span>
+          <span class="badge">准时保</span>
+        </div>
+        <div class="delivery-time">12:45</div>
+        <p class="delivery-status">骑手正加速赶往您的坐标</p>
+      </div>
+      
+      <div class="progress-bar">
+        <div class="progress-item completed">
+          <div class="progress-dot"></div>
+          <span>已接单</span>
+        </div>
+        <div class="progress-item completed">
+          <div class="progress-dot"></div>
+          <span>制作中</span>
+        </div>
+        <div class="progress-item active">
+          <div class="progress-dot"></div>
+          <span>配送中</span>
+        </div>
+        <div class="progress-item">
+          <div class="progress-dot"></div>
+          <span>待送达</span>
+        </div>
+      </div>
+      
+      <div class="map-section">
+        <img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Food%20delivery%20app%20map%20interface%20with%20delivery%20route%20and%20locations%20on%20computer%20screen&image_size=landscape_16_9" alt="配送地图" class="map-image">
+        <div class="map-labels">
+          <span class="label-store">望京SOHO店</span>
+          <span class="label-user">我的位置</span>
+          <span class="label-distance">距离 1.2km</span>
+        </div>
+      </div>
+      
+      <div class="rider-card">
+        <img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Delivery%20rider%20avatar%20portrait%20professional%20photo&image_size=square" alt="骑手头像" class="rider-avatar">
+        <div class="rider-info">
+          <div class="rider-name">
+            <span>张雪峰</span>
+            <span class="rider-rating"><i class="fas fa-star"></i> 4.9</span>
+          </div>
+          <p class="rider-desc">连续30天无投诉 · 配送快手</p>
+        </div>
+        <div class="rider-actions">
+          <button class="action-btn" onclick="chatWithRider()">
+            <i class="fas fa-message-circle"></i>
+          </button>
+          <button class="action-btn" onclick="callRider()">
+            <i class="fas fa-phone"></i>
+          </button>
+        </div>
+      </div>
+      
+      <div class="order-card">
+        <div class="order-header">
+          <div class="order-store">
+            <i class="fas fa-store"></i>
+            <span>老地方手工水饺 (望京店)</span>
+          </div>
+          <a href="#" class="order-detail">查看详情 ></a>
+        </div>
+        
+        <div class="order-items">
+          <div class="order-item">
+            <span>猪肉大葱水饺(12只)</span>
+            <span class="item-qty">x1</span>
+          </div>
+          <div class="order-item">
+            <span>秘制蘸料(微辣)</span>
+            <span class="item-qty">x1</span>
+          </div>
+          <div class="order-item">
+            <span>可口可乐 (330ml)</span>
+            <span class="item-qty">x1</span>
+          </div>
+        </div>
+        
+        <div class="order-footer">
+          <span class="order-label">实付金额</span>
+          <span class="order-amount">¥32.50</span>
+        </div>
+      </div>
+      
+      <div class="order-guarantee">
+        <i class="fas fa-shield-check"></i>
+        <span>商家承诺: 超时赔付·丢单必赔</span>
+        <a href="#" class="change-address">修改地址</a>
+      </div>
+      
+      <p class="order-tips">如需修改配送要求，请直接在对话窗口联系骑手或商家。</p>
+      <p class="order-number">订单号: ORD202310248892</p>
+      
+      <nav class="nav-bottom">
+        <button class="nav-item" onclick="showPage('page-home')">
+          <i class="fas fa-home"></i>
+          <span>首页</span>
+        </button>
+        <button class="nav-item active" onclick="showPage('page-orders')">
+          <i class="fas fa-list-alt"></i>
+          <span>订单</span>
+        </button>
+        <button class="nav-item" onclick="showPage('page-cart')">
+          <i class="fas fa-shopping-basket"></i>
+          <span>外卖</span>
+        </button>
+        <button class="nav-item" onclick="showPage('page-messages')">
+          <i class="fas fa-bell"></i>
+          <span>消息</span>
+          <span class="badge-dot"></span>
+        </button>
+        <button class="nav-item" onclick="showPage('page-profile')">
+          <i class="fas fa-user"></i>
+          <span>我的</span>
+        </button>
+      </nav>
+    </div>
+
+    <div id="page-profile" class="page">
+      <header class="header-profile">
+        <div class="header-left">
+          <i class="fas fa-bolt logo-icon"></i>
+        </div>
+        <h1 class="header-title">个人中心</h1>
+        <div class="header-right"></div>
+      </header>
+      
+      <div class="profile-card">
+        <img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Professional%20young%20man%20portrait%20avatar%20photo&image_size=square" alt="用户头像" class="profile-avatar">
+        <div class="profile-info">
+          <div class="profile-name-row">
+            <span class="profile-name">极客美食家</span>
+            <i class="fas fa-crown crown-icon"></i>
+            <span class="member-badge">黄金会员</span>
+          </div>
+          <p class="profile-id">ID: 29847103</p>
+        </div>
+      </div>
+      
+      <div class="balance-section">
+        <div class="balance-item">
+          <span class="balance-amount">¥285.50</span>
+          <span class="balance-label">余额</span>
+        </div>
+        <div class="balance-item">
+          <span class="balance-amount">12</span>
+          <span class="balance-label">优惠券</span>
+          <span class="coupon-badge">即将过期</span>
+        </div>
+        <div class="balance-item">
+          <span class="balance-amount">3,840</span>
+          <span class="balance-label">积分</span>
+        </div>
+      </div>
+      
+      <div class="quick-actions">
+        <button class="action-card" onclick="showPage('page-orders')">
+          <i class="fas fa-shopping-bag action-icon blue"></i>
+          <span class="action-text">我的订单</span>
+        </button>
+        <button class="action-card" onclick="showCoupons()">
+          <i class="fas fa-gift action-icon orange"></i>
+          <span class="action-text">红包卡券</span>
+        </button>
+        <button class="action-card" onclick="showWallet()">
+          <i class="fas fa-wallet action-icon purple"></i>
+          <span class="action-text">我的钱包</span>
+        </button>
+        <button class="action-card" onclick="showAddresses()">
+          <i class="fas fa-map-marker-alt action-icon green"></i>
+          <span class="action-text">地址管理</span>
+        </button>
+      </div>
+      
+      <div class="section">
+        <div class="section-header">
+          <h2 class="section-title">最近常吃</h2>
+          <a href="#" class="section-link">查看全部</a>
+        </div>
+        
+        <div class="recent-stores">
+          <div class="recent-card">
+            <img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Chinese%20BBQ%20restaurant%20food%20skewers&image_size=landscape_4_3" alt="望京小腰" class="recent-image">
+            <div class="recent-info">
+              <h3 class="recent-name">望京小腰·烧烤串店</h3>
+              <p class="recent-stats">已点12次 · 最近下单3天前</p>
+            </div>
+            <button class="recent-order-btn">再次下单</button>
+          </div>
+          <div class="recent-card">
+            <img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Chinese%20hot%20pot%20with%20various%20ingredients&image_size=landscape_4_3" alt="火锅店" class="recent-image">
+            <div class="recent-info">
+              <h3 class="recent-name">川渝老火锅</h3>
+              <p class="recent-stats">已点8次 · 最近下单5天前</p>
+            </div>
+            <button class="recent-order-btn">再次下单</button>
+          </div>
+        </div>
+      </div>
+      
+      <div class="menu-list">
+        <button class="menu-item" onclick="showFavorites()">
+          <i class="fas fa-heart menu-icon"></i>
+          <span class="menu-text">我的收藏</span>
+          <span class="menu-value">32个地点</span>
+          <i class="fas fa-chevron-right menu-arrow"></i>
+        </button>
+        <button class="menu-item" onclick="showService()">
+          <i class="fas fa-headphones menu-icon"></i>
+          <span class="menu-text">在线客服</span>
+          <span class="menu-value">9:00-22:00</span>
+          <i class="fas fa-chevron-right menu-arrow"></i>
+        </button>
+        <button class="menu-item" onclick="showJoin()">
+          <i class="fas fa-star menu-icon"></i>
+          <span class="menu-text">入驻加盟</span>
+          <span class="menu-value">助力商家成长</span>
+          <i class="fas fa-chevron-right menu-arrow"></i>
+        </button>
+        <button class="menu-item" onclick="showAbout()">
+          <i class="fas fa-info-circle menu-icon"></i>
+          <span class="menu-text">关于我们</span>
+          <span class="menu-value">版本v2.4.0</span>
+          <i class="fas fa-chevron-right menu-arrow"></i>
+        </button>
+        <button class="menu-item" onclick="showSettings()">
+          <i class="fas fa-cog menu-icon"></i>
+          <span class="menu-text">通用设置</span>
+          <i class="fas fa-chevron-right menu-arrow"></i>
+        </button>
+      </div>
+      
+      <div class="footer-text">
+        <p>TAKEOUT EXPRESS DELIVERY</p>
+        <p>© 2024 外卖快送 · 专业配送服务</p>
+      </div>
+      
+      <button class="btn-logout" onclick="logout()">退出当前账号</button>
+      
+      <nav class="nav-bottom">
+        <button class="nav-item" onclick="showPage('page-home')">
+          <i class="fas fa-home"></i>
+          <span>首页</span>
+        </button>
+        <button class="nav-item" onclick="showPage('page-orders')">
+          <i class="fas fa-list-alt"></i>
+          <span>订单</span>
+        </button>
+        <button class="nav-item" onclick="showPage('page-cart')">
+          <i class="fas fa-shopping-basket"></i>
+          <span>外卖</span>
+        </button>
+        <button class="nav-item" onclick="showPage('page-messages')">
+          <i class="fas fa-bell"></i>
+          <span>消息</span>
+          <span class="badge-dot"></span>
+        </button>
+        <button class="nav-item active" onclick="showPage('page-profile')">
+          <i class="fas fa-user"></i>
+          <span>我的</span>
+        </button>
+      </nav>
+    </div>
+
+    <div id="page-messages" class="page">
+      <header class="header">
+        <button class="header-back" onclick="showPage('page-profile')">
+          <i class="fas fa-arrow-left"></i>
+        </button>
+        <h1 class="header-title">消息</h1>
+        <div class="header-right"></div>
+      </header>
+      
+      <div class="message-list">
+        <div class="message-item">
+          <div class="message-avatar">
+            <i class="fas fa-store"></i>
+          </div>
+          <div class="message-content">
+            <h3 class="message-title">老地方手工水饺</h3>
+            <p class="message-text">您的订单已送出，骑手正在赶来...</p>
+            <span class="message-time">刚刚</span>
+          </div>
+          <span class="message-badge">1</span>
+        </div>
+        
+        <div class="message-item">
+          <div class="message-avatar">
+            <i class="fas fa-bell"></i>
+          </div>
+          <div class="message-content">
+            <h3 class="message-title">系统通知</h3>
+            <p class="message-text">您有一张5元优惠券即将过期</p>
+            <span class="message-time">10分钟前</span>
+          </div>
+        </div>
+        
+        <div class="message-item">
+          <div class="message-avatar">
+            <i class="fas fa-user"></i>
+          </div>
+          <div class="message-content">
+            <h3 class="message-title">客服小美</h3>
+            <p class="message-text">请问有什么可以帮到您?</p>
+            <span class="message-time">昨天</span>
+          </div>
+        </div>
+      </div>
+      
+      <nav class="nav-bottom">
+        <button class="nav-item" onclick="showPage('page-home')">
+          <i class="fas fa-home"></i>
+          <span>首页</span>
+        </button>
+        <button class="nav-item" onclick="showPage('page-orders')">
+          <i class="fas fa-list-alt"></i>
+          <span>订单</span>
+        </button>
+        <button class="nav-item" onclick="showPage('page-cart')">
+          <i class="fas fa-shopping-basket"></i>
+          <span>外卖</span>
+        </button>
+        <button class="nav-item active" onclick="showPage('page-messages')">
+          <i class="fas fa-bell"></i>
+          <span>消息</span>
+          <span class="badge-dot"></span>
+        </button>
+        <button class="nav-item" onclick="showPage('page-profile')">
+          <i class="fas fa-user"></i>
+          <span>我的</span>
+        </button>
+      </nav>
+    </div>
+  </div>
+  
+  <script src="js/app.js"></script>
+</body>
+</html>
